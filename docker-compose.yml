@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   todo_service:
+    container_name: todo_service
     build: todo_service
     volumes:
       - ./todo_service/:/src/
