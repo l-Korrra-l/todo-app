@@ -4,10 +4,11 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
-from todo_service.src.enums.task_status import TaskStatusEnum
+from src.enums.task_status import TaskStatusEnum
+from src.models.base_model import BaseModel
 
 
-class Todolist:
+class Todolist(BaseModel):
     __tablename__ = "todolist"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(length=20), nullable=False)
@@ -18,3 +19,8 @@ class Todolist:
         primaryjoin="Todolist.owner==User.id",
         back_populates="todolist_rel",
     )
+    # pl
+    # task                                                                                                                                     _rel = relationship(
+    #     "Task",
+    #     back_populates="task_rel",
+    # )

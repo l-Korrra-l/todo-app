@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
-from todo_service.src.models.base_model import BaseModel
+from src.models.base_model import BaseModel
 
 
 class User(BaseModel):
