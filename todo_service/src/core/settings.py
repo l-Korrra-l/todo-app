@@ -6,6 +6,7 @@ from pydantic import BaseSettings, PostgresDsn, validator
 class CustomPostgresDsn(PostgresDsn):
     allowed_schemes = {"postgres", "postgresql", "postgresql+asyncpg"}
 
+
 class SettingsPostgres(BaseSettings):
     POSTGRES_HOST: Optional[str]
     POSTGRES_USER: str
@@ -22,10 +23,12 @@ class SettingsPostgres(BaseSettings):
             scheme="postgresql+asyncpg",
             user=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
-            host=values.get("POSTGRES_HOST") if values.get("POSTGRES_HOST") else "127.0.0.1",
+            host=values.get("POSTGRES_HOST")
+            if values.get("POSTGRES_HOST")
+            else "127.0.0.1",
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
 
     class Config:
         case_sensitive = True
-        env_file = "../.env"
+        env_file = ".env"
