@@ -32,3 +32,37 @@ class SettingsPostgres(BaseSettings):
     class Config:
         case_sensitive = True
         env_file = ".env"
+
+class SettingsJWT(BaseSettings):
+    JWT_REFRESH_SECRET_KEY: str
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
+    JWT_EXP_MIN: int = 180
+    JWT_REFRESH_EXP_MIN: int = 720
+
+    @validator("JWT_ALGORITHM", pre=True)
+    def validate_algorithm(cls, v: str, values: Dict[str, Any]) -> Optional[str]:
+        available_algorithms = [
+            "HS256",
+            "HS384",
+            "HS512",
+            "ES256",
+            "ES384",
+            "ES512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "PS256",
+            "PS384",
+            "PS512",
+            "EdDSA",
+            "ES256K",
+        ]
+        if v in available_algorithms:
+            return v
+        raise ValueError("Algorithm can not be found.")
+
+    class Config:
+        case_sensitive = True
+        env_file = ".env"
+
