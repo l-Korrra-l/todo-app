@@ -15,7 +15,5 @@ class Task(BaseModel):
     list = sa.Column(UUID, sa.ForeignKey("todolist.id", ondelete="CASCADE"), nullable=False)
     list_rel = relationship(
         "Todolist",
-        foreign_keys=[list],
-        primaryjoin="Todolist.owner==User.id",
-        back_populates="todolist_rel",
+        back_populates="task_rel",
     )

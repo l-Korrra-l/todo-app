@@ -12,7 +12,7 @@ class Todolist(BaseModel):
     __tablename__ = "todolist"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(length=20), nullable=False)
-    owner = Column(UUID, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    owner = Column(UUID(as_uuid=True), ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
     owner_rel = relationship(
         "User",
         foreign_keys=[owner],
@@ -21,5 +21,5 @@ class Todolist(BaseModel):
     )
     task_rel = relationship(
         "Task",
-        back_populates="task_rel",
+        back_populates="list_rel",
     )
