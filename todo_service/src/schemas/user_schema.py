@@ -54,9 +54,13 @@ class UserCreateSchema(PasswordBaseSchema, EmailBaseSchema):
         orm_mode = True
 
 
-class UserUpdateScheme(UserCreateSchema):
+class UserUpdateSchema(UserCreateSchema):
     email: Optional[str]
     first_name: Optional[str]
     last_name: Optional[str]
     phone: Optional[str]
     password: Optional[str]
+
+
+class UserLoginSchema(PasswordBaseSchema, EmailBaseSchema):
+    pass
