@@ -13,6 +13,3 @@ COPY . /src/
 
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
-
-#alembic --config src/alembic.ini revision --autogenerate --message auto
-#alembic --config src/alembic.ini upgrade head
