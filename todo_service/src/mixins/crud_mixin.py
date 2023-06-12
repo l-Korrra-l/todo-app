@@ -1,4 +1,6 @@
-from typing import TypeVar
+import uuid
+from sqlalchemy import delete, desc, select, update
+from typing import TypeVar, Union
 
 from fastapi import HTTPException, status
 from pydantic import BaseModel
@@ -33,3 +35,15 @@ class CRUDMixin:
             raise HTTPException(detail=http_exc_text, status_code=status.HTTP_400_BAD_REQUEST)
         await session.refresh(obj)
         return obj
+
+    @classmethod
+    def get_pk_attr(cls):
+        """Get PK attribute of table"""
+        return getattr(cls.table.__table__.c, cls.table.pk_name())
+
+    @classmethod
+    async def retrieve(cls, pk: uuid, session: AsyncSession) -> Union[table, HTTPException]:
+        query = select(cls.table).where(cls.get_pk_attr() == pk)
+        res = (await session.execute(query)).scalars().first()
+        await session.refresh(res)
+        return res

@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.user import User
+from src.schemas.token_schema import LoginTokens
 from src.schemas.user_schema import UserCreateSchema, UserLoginSchema
 from src.services.db_services.user_db_service import UserDBService
 from src.services.token_service import TokenService
@@ -31,6 +32,14 @@ class UserService:
         if not handler.verify(data.password, user.password):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials")
 
+        return await TokenService.generate_tokens(
+            user=user,
+        )
+
+    @staticmethod
+    async def refresh_tokens(refresh_token: str, session: AsyncSession) -> LoginTokens:
+        """Refresh tokens for user"""
+        user = await TokenService.decode_refresh_jwt(refresh_token, session)
         return await TokenService.generate_tokens(
             user=user,
         )

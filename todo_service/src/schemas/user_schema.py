@@ -64,3 +64,14 @@ class UserUpdateSchema(UserCreateSchema):
 
 class UserLoginSchema(PasswordBaseSchema, EmailBaseSchema):
     pass
+
+
+class GetUserSchema(BaseModel):
+    id: int
+    email: str
+    first_name: str
+    last_name: str
+    phone: str
+
+    class Config:
+        orm_mode = True

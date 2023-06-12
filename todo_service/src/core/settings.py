@@ -66,3 +66,10 @@ class SettingsJWT(BaseSettings):
         case_sensitive = True
         env_file = ".env"
 
+
+class MiddlewareSettings(BaseSettings):
+    ANONYMOUS_ENDPOINTS: list[str] = [
+        '/api/v1/user/sign-up/',
+        '/api/v1/user/sign-in/',
+        '/api/v1/user/refresh/',
+    ]
