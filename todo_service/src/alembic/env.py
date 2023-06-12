@@ -11,6 +11,7 @@ from src.core.db import Base
 from src.core.settings import SettingsPostgres
 from src.models.user import User
 from src.models.task import Task
+from src.models.list import Todolist
 
 
 db_settings = SettingsPostgres()

@@ -14,7 +14,7 @@ class User(BaseModel):
     password = sa.Column(sa.String(length=100), nullable=True)
     email = sa.Column(sa.String(length=254), unique=True, nullable=True)
     phone = sa.Column(sa.String(length=15), unique=True, nullable=False)
-    # todolist_rel = relationship(
-    #     "Todolist",
-    #     back_populates="owner_rel",
-    # )
+    todolist_rel = relationship(
+        "Todolist",
+        back_populates="owner_rel",
+    )
