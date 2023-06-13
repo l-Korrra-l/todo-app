@@ -5,13 +5,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 WORKDIR /src
 
-COPY Pipfile Pipfile.lock ./
+COPY requirements.txt .
 
-RUN pip install -U pipenv
-
-RUN pipenv install --system
+RUN pip install -r requirements.txt
 
 COPY . /src/
 
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
+
+#alembic --config src/alembic.ini revision --autogenerate --message auto
+#alembic --config src/alembic.ini upgrade head

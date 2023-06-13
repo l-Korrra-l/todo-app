@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 uvicorn = {extras = ["standard"], version = "*"}
 fastapi = {extras = ["all"], version = "*"}
+sqlalchemy = "==2.0.4"
+asyncpg = "==0.27.0"
+alembic = "==1.10.2"
+psycopg2-binary = "==2.9.5"
 
 [dev-packages]
 
